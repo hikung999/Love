@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>รักเธอนะ</title>
+  <style>
+    body {
+      margin: 30px; /* เว้นขอบรอบ ๆ */
+      padding: 20px;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+
+      /* เพิ่มกรอบ */
+      border: 8px solid #ff9abf;
+      border-radius: 30px;
+      box-shadow: 0 0 30px 10px rgba(255, 154, 191, 0.5);
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .heart {
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      width: 100px;
+      height: 90px;
+      background: red;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 20px red;
+      z-index: 5;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 100px;
+      height: 90px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -50px;
+      left: 0;
+    }
+    .heart::after {
+      left: 50px;
+      top: 0;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: translate(-50%, -50%) rotate(-45deg) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) rotate(-45deg) scale(1.2);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(-45deg) scale(1);
+      }
+    }
+
+    .secret-button {
+      position: absolute;
+      top: 60%; /* ตำแหน่งเดิม */
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ff4b5c;
+      color: white;
+      border: 3px solid #ff99aa; /* กรอบสีชมพูอ่อน */
+      padding: 15px 30px;
+      font-size: 1.5em;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 105, 135, 0.7); /* เงาสีชมพู */
+      transition: 0.3s;
+      z-index: 10;
+    }
+
+    .secret-button:hover {
+      background: #ff2e44;
+      border-color: #ff6680; /* กรอบเข้มขึ้นเวลาผ่าน */
+      box-shadow: 0 6px 20px rgba(255, 50, 80, 0.9);
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    .popup {
+      display: none;
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      color: #ff4b5c;
+      padding: 20px;
+      font-size: 1.5em;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #ff4b5c;
+      animation: fadeIn 1s;
+      z-index: 20;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .floating-heart {
+      position: absolute;
+      color: #ff4b5c;
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+      z-index: 4;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+
+    .youtube-container {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px;
+      border: 4px dashed #ffb6c1;
+      border-radius: 15px;
+      background-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 15px #ffaec0;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div class="heart"></div>
+
+  <button class="secret-button" onclick="showLove()">คลิกเพื่อดูความลับ 💌</button>
+  <div class="popup" id="popupMessage">เธอคือจักรวาลของเรา 💫</div>
+
+  <div class="youtube-container">
+    <iframe
+      width="300"
+      height="170"
+      src="https://www.youtube.com/embed/OYPiXBIgvJ8?si=vUPPnrzqfLNtKTwM"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <script>
+    const messages = [
+      "รักอ้วนนะค้าบ 💖",
+      "โครตคิดถึงอ้วนเลย 😊",
+      "โลกนี้น่าอยู่เพราะมีอ้วน 🌎",
+      "อยากอยู่กับอ้วนไปนานๆจัง 😍",
+      "คิดถึงอ้วนแล้วววววว 💗",
+    ];
+
+    function showLove() {
+      const popup = document.getElementById("popupMessage");
+      popup.innerText = messages[Math.floor(Math.random() * messages.length)];
+      popup.style.display = "block";
+    }
+
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "floating-heart";
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 20 + "px";
+      heart.style.animationDuration = Math.random() * 5 + 4 + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 300);
+  </script>
+</body>
+</html>
